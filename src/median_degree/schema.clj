@@ -31,8 +31,11 @@
   (let [coercer (c/coercer schema matcher)
         result (coercer data)]
     (if (s-utils/error? result)
-      (throw (Exception. (format "Value does not match schema :%s"
-                                 (s-utils/error-val result))))
+      (let [error (s-utils/error-val result)]
+        (throw (ex-info (format "Value does not match schema :%s"
+                                error)
+                        {:type :coercion-exception
+                         :cause error})))
       result)))
 
 (defn tx-validate
