@@ -8,10 +8,12 @@
 
 (s/defschema VenmoTX
   "schema for coercing 
-   and validating venmo transactions"
-  {:target s/Str
-   :actor s/Str
-   :created_time DateTime})
+   and validating venmo transactions
+   allows k:v outside the required ones"
+  {:target s/Keyword
+   :actor s/Keyword
+   :created_time DateTime
+   s/Keyword s/Any})
 
 (defn date-matcher
   "provides coercion from string to date"
