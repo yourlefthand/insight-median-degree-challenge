@@ -1,0 +1,7 @@
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*.twitter
+.DS_Store
+*.sw$
+insight_testsuite/results.txt
+insight_testsuite/temp
