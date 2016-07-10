@@ -18,12 +18,13 @@
     :default "./venmo_output/output.txt"]
    ["-h" "--help"]])
 
-;also more generic
+;also should be more generic
 (defn reduce-to-degrees
   "reduces a graph to an array of node references
   and further reduces to an instance count"
   [graph]
   )
+
 ;this should be made more generic btw
 (defn evict-edges
   "finds the newest timestamp in graph, filters values accordingly"

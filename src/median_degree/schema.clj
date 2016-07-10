@@ -22,7 +22,7 @@
         (if (string? x) (ctime/from-string x) x)))))
 
 (def tx-matcher
-  "provides string + json coercion"
+  "provides datestring + json coercion"
   (c/first-matcher [date-matcher c/json-coercion-matcher]))
 
 (defn coerce-and-validate
