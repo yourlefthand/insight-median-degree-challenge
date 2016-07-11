@@ -5,7 +5,7 @@ a clojure approach to the [insight data engineering code challenge](https://gith
 ## Dependencies
 
 ### java
-JDK 8 - preferably [openjdk](http://openjdk.java.net/install/) - must be installed. `$ java` & `$ javac` should be on PATH and configured to point at jdk8:
+JDK 8 - preferably [openjdk](http://openjdk.java.net/install/) - must be installed. `$ java` & `$ javac` should be on PATH and configured to resolve jdk8:
 
 ```bash
 $ java -version
@@ -29,7 +29,7 @@ on rhel-based (see [redhat's accepted solution](https://access.redhat.com/soluti
 
 [leiningen](http://leiningen.org/#install) must be installed and available on PATH to user running test suites.
 
-*NOTE* please do not install leiningen from repository, but follow the instructions provided at (http://leiningen.org/#install) as the version in repository is far out of date and does not provide methods for updating.
+*NOTE* please do not install leiningen from repository, but follow the instructions provided at http://leiningen.org/#install as the version in repository is far out of date and does not provide methods for updating.
 
 ```bash
 $ lein -version
