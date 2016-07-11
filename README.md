@@ -30,6 +30,8 @@ on rhel-based (see [redhat's accepted solution](https://access.redhat.com/soluti
 [leiningen](http://leiningen.org/#install) must be installed and available on PATH to user running test suites:
 
 ```bash
+$ lein -version
+Leiningen 2.6.1 on Java 1.8.0_91 OpenJDK 64-Bit Server VM
 $ cd ./src; lein test
 lein test median-degree.graph-test
 
