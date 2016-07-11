@@ -27,7 +27,9 @@
       (doseq [tx (line-seq in-file)]
         (try 
           (let [valid-tx (tx-validate (parse-string tx true))
-                graph (graph/add-edge! (graph/form-edge-from-tx valid-tx))]
+                created-time (:created_time valid-tx)
+                graph (graph/add-edge! (graph/form-edge-from-tx valid-tx)
+                                       (graph/latest-transaction! created-time))]
             (.write out-file 
                   (format "%.2f\n" 
                           (double 
