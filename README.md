@@ -27,7 +27,9 @@ on rhel-based (see [redhat's accepted solution](https://access.redhat.com/soluti
 
 ### lein
 
-[leiningen](http://leiningen.org/#install) must be installed and available on PATH to user running test suites:
+[leiningen](http://leiningen.org/#install) must be installed and available on PATH to user running test suites.
+
+*NOTE* please do not install leiningen from repository, but follow the instructions provided at (http://leiningen.org/#install) as the version in repository is far out of date and does not provide methods for updating.
 
 ```bash
 $ lein -version
@@ -42,7 +44,7 @@ lein test median-degree.schema-test
 Ran 17 tests containing 43 assertions.
 0 failures, 0 errors.
 ```
- 
+
 ## Usage
 
 ### with run.sh
