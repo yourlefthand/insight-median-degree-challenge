@@ -1,11 +1,7 @@
 (ns median-degree.graph
-  "namespace manages graph of venmo transactions
-  stores graph in atomic vector of median-degree.schema/VenmoTX structs.
-  this gives a complete description of graph with directionality and 
-  additional data to drive edge eviction.
-  Graph mutation operations are perfomed on edge-list representation
-  as our main focus is adding edges and evicting them based on edge metadata
-  edges are stored as sets of node identities that serve as keys to edge metadata"
+  "namespace manages graph of venmo transactions.
+  stores graph in atomic hashmap with set of node identities as keys
+  and created times as values."
   (:require [clj-time.core :as time]
             [clj-time.coerce :as ctime]
             [clojure.core.reducers :as r]
@@ -13,11 +9,11 @@
             [median-degree.schema :refer [tx-validate]]))
 
 (def venmo-graph
-  "initializes graph as empty vector on require"
+  "initializes graph as empty map on require"
   (atom {}))
 
 (def latest-transaction
-  "initializes as empty transaction on require"
+  "initializes as losing transaction date on require"
   (atom (ctime/from-long 0)))
 
 (defn compare-transaction-times
@@ -25,6 +21,11 @@
   [a b]
   (if (time/after? a  b)
     a b))
+
+(def latest-transaction!
+  "updates compares and updates the latest transaction information
+  given a new edge"
+  (partial swap! latest-transaction compare-transaction-times))
 
 (defn find-latest-transaction
   "expects a vector of median-degree.schema/VenmoTX structs,
@@ -65,24 +66,6 @@
   (let [tx (tx-validate tx)]
     {(apply hash-set ((juxt :actor :target) tx)) (:created_time tx)}))
 
-(def latest-transaction!
-  "updates compares and updates the latest transaction information
-  given a new edge"
-  (partial swap! latest-transaction compare-transaction-times))
-
-(defn add-edge
-  "takes a median-degree.schema/VenmoTX struct and upserts into graph
-  evicts edges and returns valid edge list of tx graph"
-  ([graph new-edge]
-   (evict-edges (merge-into-graph graph new-edge)))
-  ([graph new-edge latest-transaction]
-   (evict-edges (merge-into-graph graph new-edge) latest-transaction)))
-
-(def add-edge!
-  "swaps atomic value of venmo-graph
- with update per new edge"
- (partial swap! venmo-graph add-edge)) 
-
 (defn fetch-edges
   "fetches edges of graph from atomic graph unless
   graph is provided as arg"
@@ -122,3 +105,16 @@
                                          adj-list 
                                          {(first head) (hash-set (last head))}
                                          {(last head) (hash-set (first head))}))))))
+(defn add-edge
+  "takes a median-degree.schema/VenmoTX struct and upserts into graph
+  evicts edges and returns valid edge list of tx graph"
+  ([graph new-edge]
+   (evict-edges (merge-into-graph graph new-edge)))
+  ([graph new-edge latest-transaction]
+   (evict-edges (merge-into-graph graph new-edge) latest-transaction)))
+
+(def add-edge!
+  "swaps atomic value of venmo-graph
+  with update per new edge"
+  (partial swap! venmo-graph add-edge)) 
+
