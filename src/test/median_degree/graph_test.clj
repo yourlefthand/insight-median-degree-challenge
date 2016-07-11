@@ -1,5 +1,6 @@
 (ns median-degree.graph-test
   (:require [clj-time.core :as time]
+            [clj-time.coerce :as ctime]
             [clojure.test :refer :all]
             [median-degree.graph :refer :all]))
 
@@ -18,7 +19,7 @@
     (let [venmo-tx {}]
       (is (thrown? clojure.lang.ExceptionInfo (form-edge-from-tx venmo-tx))))))
 
-(deftest marge-into-graph-test
+(deftest merge-into-graph-test
   "takes a valid edge struct and merges into graph"
   (let [graph {}]
     (testing "add empty struct to empty graph"
@@ -119,6 +120,15 @@
       (is (= {:foo #{:bar :baz}
               :bar #{:foo :baz}
               :baz #{:foo :bar}} (fetch-adjacency-list graph))))))
+
+(deftest latest-transaction!-test
+  "tests atom swap"
+  (testing "empty atom"
+    (is (time/equal? (ctime/from-long 0) @latest-transaction)))
+  (testing "swap for newer date"
+    (is (time/equal? later (latest-transaction! later))))
+  (testing "no swap for prior date"
+    (is (time/equal? later (latest-transaction! now)))))
 
 (deftest add-edge!-test
   "tests atom swap"
