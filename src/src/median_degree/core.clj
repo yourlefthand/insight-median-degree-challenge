@@ -10,10 +10,10 @@
 (def cli-options
   [["-i" "--in FILEPATH" 
     "input filepath relative to runtime path" 
-    :default "./venmo_input/venmo-trans.txt"]
+    :default "../venmo_input/venmo-trans.txt"]
    ["-o" "--out FILEPATH" 
     "output filepath relative to runtime path"
-    :default "./venmo_output/output.txt"]
+    :default "../venmo_output/output.txt"]
    ["-h" "--help"]])
 
 (defn -main
