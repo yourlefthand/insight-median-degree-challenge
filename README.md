@@ -6,28 +6,31 @@ a clojure approach to the [insight data engineering code challenge](https://gith
 
 ### Dependencies
 
-   * java
-      * JDK 8 - preferably [openjdk](http://openjdk.java.net/install/) - must be installed. `$ java` & `$ javac` should be on path and configured to point at jdk8:
-        ```bash
-        $ java -version
-        openjdk version "1.8.0_91"
-        OpenJDK Runtime Environment (build 1.8.0_91-8u91-b14-0ubuntu4~14.04-b14)
-        OpenJDK 64-Bit Server VM (build 25.91-b14, mixed mode)
-        ```
-   * lein
-      * [leiningen](http://leiningen.org/#install) must be installed and available on PATH to user running test suites:
-        ```bash
-        $ cd ./src; lein test
-        lein test median-degree.graph-test
+#### java
+JDK 8 - preferably [openjdk](http://openjdk.java.net/install/) - must be installed. `$ java` & `$ javac` should be on path and configured to point at jdk8:
 
-        lein test median-degree.median-test
+```bash
+$ java -version
+openjdk version "1.8.0_91"
+OpenJDK Runtime Environment (build 1.8.0_91-8u91-b14-0ubuntu4~14.04-b14)
+OpenJDK 64-Bit Server VM (build 25.91-b14, mixed mode)
+    ```
 
-        lein test median-degree.schema-test
+#### lein
 
-        Ran 17 tests containing 43 assertions.
-        0 failures, 0 errors.
-        ``` 
+[leiningen](http://leiningen.org/#install) must be installed and available on PATH to user running test suites:
 
+```bash
+$ cd ./src; lein test
+lein test median-degree.graph-test
+
+lein test median-degree.median-test
+
+lein test median-degree.schema-test
+
+Ran 17 tests containing 43 assertions.
+0 failures, 0 errors.
+``` 
 ## Usage
 
 ### with run.sh
@@ -40,7 +43,7 @@ from top directory:
 ### with lein run
 from top directory:
 
-     cd ./src; lein run [args]
+    $ cd ./src; lein run [args]
 
 ### with java -jar
 (example compiles to uberjar then runs)
