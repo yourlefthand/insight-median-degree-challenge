@@ -23,24 +23,25 @@
     a b))
 
 (def latest-transaction!
-  "updates compares and updates the latest transaction information
+  "compares and conditionally updates the latest transaction information
   given a new edge"
   (partial swap! latest-transaction compare-transaction-times))
 
 (defn find-latest-transaction
-  "expects a vector of median-degree.schema/VenmoTX structs,
-  reduces to the latest tx"
+  "expects a map of node-pair:transaction-date,
+  reduces to the latest map entry"
   [graph]
   (reduce compare-transaction-times (vals graph)))
 
 (defn eviction-limit
   "provides boolean predicate on whether a datetime falls sooner than
-  60 seconds of a given datetime"
+   another given datetime minus some amount of time"
   [target limit]
   #(time/after? % (time/minus target limit))) 
 
 (defn evict-edges
-  "takes existing graph & new transaction,
+  "takes existing graph, latest transaction time and
+  step value back from latest transaction time (i.e. 60 sceonds),
   evicts outdated edges and returns valid graph"
   ([graph]
    (let [latest-created (find-latest-transaction graph)]
@@ -61,7 +62,7 @@
 (defn form-edge-from-tx
   "forms an edge from a tx object, where an edge consists of a hashmap:
   {#{actor target} time_created}
-  using a set of node ids as this graph is undirected"
+  using an unordered set of node ids for key as this graph is undirected"
   [tx]
   (let [tx (tx-validate tx)]
     {(apply hash-set ((juxt :actor :target) tx)) (:created_time tx)}))
@@ -106,7 +107,8 @@
                                          {(first head) (hash-set (last head))}
                                          {(last head) (hash-set (first head))}))))))
 (defn add-edge
-  "takes a median-degree.schema/VenmoTX struct and upserts into graph
+  "takes edge struct as returned by form-edge-from-tx 
+  and merges into graph, then
   evicts edges and returns valid edge list of tx graph"
   ([graph new-edge]
    (evict-edges (merge-into-graph graph new-edge)))
