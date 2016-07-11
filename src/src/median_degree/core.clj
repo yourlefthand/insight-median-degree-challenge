@@ -17,7 +17,7 @@
    ["-h" "--help"]])
 
 (defn -main
-  "takes input filepath and output filepath as arguments
+  "takes input filepath and output filepath as runtime arguments
    input filebuffer is used to form graph of user interactions
    graph is used to calculate median node degree"
   [& args]
