@@ -9,7 +9,8 @@
   (:require [clj-time.core :as time]
             [clj-time.coerce :as ctime]
             [clojure.core.reducers :as r]
-            [clojure.set :refer [union]]))
+            [clojure.set :refer [union]]
+            [median-degree.schema :refer [tx-validate]]))
 
 (def venmo-graph
   "initializes graph as empty vector on require"
@@ -44,8 +45,10 @@
    (let [latest-created (find-latest-transaction graph)]
      (evict-edges graph latest-created)))
   ([graph latest-created]
+     (evict-edges graph latest-created (time/seconds 60)))
+  ([graph latest-created limit]
      (into {} (filter 
-                (comp (eviction-limit latest-created (time/seconds 60))
+                (comp (eviction-limit latest-created limit)
                       val) graph))))
 
 (defn merge-into-graph
@@ -59,7 +62,8 @@
   {#{actor target} time_created}
   using a set of node ids as this graph is undirected"
   [tx]
-  {(apply hash-set ((juxt :actor :target) tx)) (:created_time tx)})
+  (let [tx (tx-validate tx)]
+    {(apply hash-set ((juxt :actor :target) tx)) (:created_time tx)}))
 
 (def latest-transaction!
   "updates compares and updates the latest transaction information
