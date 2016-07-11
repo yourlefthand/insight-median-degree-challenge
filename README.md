@@ -20,9 +20,11 @@ OpenJDK 64-Bit Server VM (build 25.91-b14, mixed mode)
 Lein will attempt to fetch dependencies from clojar and maven repositories that may use https. On some systems (particularly virtual machines) the system ca certificates may need to be refreshed before dependencies can be fetched and the project compiled:
 
 on debian:
+
     $ sudo update-ca-certificates -f
 
 on rhel-based (see [redhat's accepted solution](https://access.redhat.com/solutions/1549003) for more detail):
+
     $ sudo update-ca-trust extract 
 
 #### lein
