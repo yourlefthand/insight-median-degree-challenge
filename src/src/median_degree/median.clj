@@ -1,7 +1,7 @@
 (ns median-degree.median)
 
 (defn median
-  "given a set of numbers, return the median val"
+  "given a coll of numbers, return the median val"
   [nc]
   (let [nc (sort nc)
         cnt (count nc)
