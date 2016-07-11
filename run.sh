@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-# example of the run script for running the rolling_median calculation with a python file, 
-# but could be replaced with similar files from any major language
+##changes working dir to src, then runs lein to initialize main method
 
-# I'll execute my programs, with the input directory venmo_input and output the files in the directory venmo_output
-#python ./src/rolling_median.py ./venmo_input/venmo-trans.txt ./venmo_output/output.txt
-lein run -i ./venmo_input/venmo-trans.txt -o ./venmo_output/output.txt
+if [ ! -f ./src/target/uberjar/median-degree-0.1.0-standalone.jar ]; then
+	(cd ./src && lein uberjar)
+fi
 
-
+java -jar ./src/target/uberjar/median-degree-0.1.0-standalone.jar -i ./venmo_input/venmo-trans.txt -o ./venmo_output/output.txt
