@@ -14,7 +14,7 @@ $ java -version
 openjdk version "1.8.0_91"
 OpenJDK Runtime Environment (build 1.8.0_91-8u91-b14-0ubuntu4~14.04-b14)
 OpenJDK 64-Bit Server VM (build 25.91-b14, mixed mode)
-    ```
+```
 
 #### lein
 
@@ -30,7 +30,8 @@ lein test median-degree.schema-test
 
 Ran 17 tests containing 43 assertions.
 0 failures, 0 errors.
-``` 
+```
+ 
 ## Usage
 
 ### with run.sh
