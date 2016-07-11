@@ -1,4 +1,4 @@
-# median-degree
+# Venmo Transaction Graph & Median Node Degree
 
 a clojure approach to the [insight data engineering code challenge](https://github.com/InsightDataScience/coding-challenge)
 
