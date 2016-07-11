@@ -17,7 +17,7 @@ OpenJDK 64-Bit Server VM (build 25.91-b14, mixed mode)
 ### CA certificates
 Lein will attempt to fetch dependencies from clojar and maven repositories that may use https. On some systems (particularly virtual machines) the system ca certificates may need to be refreshed before dependencies can be fetched and the project compiled.
 
-*NOTE* if these dependencies are not met, it may not become apparent until compile. If dependency fetching fails at compile, please refer to this section
+*NOTE* if ca certificates are not valid, it may not become apparent until compile. If dependency fetching fails at compile, please refer to this section
 
 on debian:
 
