@@ -2,12 +2,10 @@
 
 a clojure approach to the [insight data engineering code challenge](https://github.com/InsightDataScience/coding-challenge)
 
-## Installation
+## Dependencies
 
-### Dependencies
-
-#### java
-JDK 8 - preferably [openjdk](http://openjdk.java.net/install/) - must be installed. `$ java` & `$ javac` should be on path and configured to point at jdk8:
+### java
+JDK 8 - preferably [openjdk](http://openjdk.java.net/install/) - must be installed. `$ java` & `$ javac` should be on PATH and configured to point at jdk8:
 
 ```bash
 $ java -version
@@ -16,7 +14,7 @@ OpenJDK Runtime Environment (build 1.8.0_91-8u91-b14-0ubuntu4~14.04-b14)
 OpenJDK 64-Bit Server VM (build 25.91-b14, mixed mode)
 ```
 
-#### CA certificates
+### CA certificates
 Lein will attempt to fetch dependencies from clojar and maven repositories that may use https. On some systems (particularly virtual machines) the system ca certificates may need to be refreshed before dependencies can be fetched and the project compiled:
 
 on debian:
@@ -27,7 +25,7 @@ on rhel-based (see [redhat's accepted solution](https://access.redhat.com/soluti
 
     $ sudo update-ca-trust extract 
 
-#### lein
+### lein
 
 [leiningen](http://leiningen.org/#install) must be installed and available on PATH to user running test suites:
 
