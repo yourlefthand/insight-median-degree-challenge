@@ -33,7 +33,7 @@
                           (double 
                             (median (vals (graph/fetch-node-degrees graph)))))))
           (catch JsonParseException e
-            (println (str "unable to form json from " tx ":" (.getStackTrace e))))
+            (spit "median-degree.log" (str "WARN: unable to form json from " tx ":" (.getStackTrace e) "\n") :append true))
           (catch clojure.lang.ExceptionInfo e
             (if (= :coercion-exception (-> e ex-data :type))
-              (println (str "unable to validate data for tx: " tx ":" e)))))))))
+              (spit "median-degree.log" (str "WARN: unable to validate data for tx: " tx ":" e "\n") :append true))))))))
