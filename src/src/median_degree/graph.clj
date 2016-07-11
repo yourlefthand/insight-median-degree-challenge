@@ -8,7 +8,8 @@
   edges are stored as sets of node identities that serve as keys to edge metadata"
   (:require [clj-time.core :as time]
             [clj-time.coerce :as ctime]
-            [clojure.core.reducers :as r]))
+            [clojure.core.reducers :as r]
+            [clojure.set :refer [union]]))
 
 (def venmo-graph
   "initializes graph as empty vector on require"
@@ -58,7 +59,7 @@
   {#{actor target} time_created}
   using a set of node ids as this graph is undirected"
   [tx]
-  {(set ((juxt :actor :target) tx)) (:created_time tx)})
+  {(apply hash-set ((juxt :actor :target) tx)) (:created_time tx)})
 
 (def latest-transaction!
   "updates compares and updates the latest transaction information
@@ -92,11 +93,28 @@
   ([]
    (fetch-nodes @venmo-graph))
   ([graph]
-   (reduce clojure.set/union (fetch-edges graph))))
+   (reduce union (fetch-edges graph))))
 
 (defn fetch-node-degrees
   "returns node degrees for atomic graph unless graph is specified"
   ([]
    (fetch-node-degrees @venmo-graph))
   ([graph]
-   (frequencies (flatten (map #(vec %) (fetch-edges graph))))))
+   (frequencies (flatten (map vec (fetch-edges graph))))))
+
+(defn fetch-adjacency-list
+  "fetches edge-list as undirected adjacency list
+  uses atomic graph unless graph is provided as arg"
+  ([]
+   (fetch-adjacency-list @venmo-graph))
+  ([graph]
+   (fetch-adjacency-list graph {}))
+  ([graph adj-list]
+   (if (empty? graph)
+     adj-list
+     (let [head (key (first graph))]
+       (fetch-adjacency-list (into {} (rest graph)) 
+                             (merge-with union
+                                         adj-list 
+                                         {(first head) (hash-set (last head))}
+                                         {(last head) (hash-set (first head))}))))))
