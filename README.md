@@ -5,7 +5,7 @@ a clojure approach to the [insight data engineering code challenge](https://gith
 ## Dependencies
 
 ### java
-JDK 8 - preferably [openjdk](http://openjdk.java.net/install/) - must be installed. `$ java` & `$ javac` should be on PATH and configured to resolve jdk8:
+java (version >= 1.8.0) - preferably [openjdk](http://openjdk.java.net/install/) - must be installed. `$ java` & `$ javac` should be on PATH and configured to resolve jdk8:
 
 ```bash
 $ java -version
@@ -15,7 +15,9 @@ OpenJDK 64-Bit Server VM (build 25.91-b14, mixed mode)
 ```
 
 ### CA certificates
-Lein will attempt to fetch dependencies from clojar and maven repositories that may use https. On some systems (particularly virtual machines) the system ca certificates may need to be refreshed before dependencies can be fetched and the project compiled:
+Lein will attempt to fetch dependencies from clojar and maven repositories that may use https. On some systems (particularly virtual machines) the system ca certificates may need to be refreshed before dependencies can be fetched and the project compiled.
+
+*NOTE* if these dependencies are not met, it may not become apparent until compile. If dependency fetching fails at compile, please refer to this section
 
 on debian:
 
@@ -27,7 +29,7 @@ on rhel-based (see [redhat's accepted solution](https://access.redhat.com/soluti
 
 ### lein
 
-[leiningen](http://leiningen.org/#install) must be installed and available on PATH to user running test suites.
+[leiningen](http://leiningen.org/#install) (version >= 2.6.1) must be installed and available on PATH to user running test suites.
 
 *NOTE* please do not install leiningen from repository, but follow the instructions provided at http://leiningen.org/#install as the version in repository is far out of date and does not provide methods for updating.
 
