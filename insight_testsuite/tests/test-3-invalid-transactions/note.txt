@@ -1,0 +1,1 @@
+includes 12 (300 / 25) invalid tx objects
