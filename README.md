@@ -64,7 +64,7 @@ from top directory:
 
 from top directory:
 
-    $ (cd ./src; lein uberjar) && java -jar ./src/target/uberjar/median-degree-0.1.0-standalone.jar [options]
+    $ cd ./src; lein uberjar && java -jar ./src/target/uberjar/median-degree-0.1.0-standalone.jar [options]
 
 ## Options
 
