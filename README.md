@@ -16,6 +16,15 @@ OpenJDK Runtime Environment (build 1.8.0_91-8u91-b14-0ubuntu4~14.04-b14)
 OpenJDK 64-Bit Server VM (build 25.91-b14, mixed mode)
 ```
 
+#### CA certificates
+Lein will attempt to fetch dependencies from clojar and maven repositories that may use https. On some systems (particularly virtual machines) the system ca certificates may need to be refreshed before dependencies can be fetched and the project compiled:
+
+on debian:
+    $ sudo update-ca-certificates -f
+
+on rhel-based (see [redhat's accepted solution](https://access.redhat.com/solutions/1549003) for more detail):
+    $ sudo update-ca-trust extract 
+
 #### lein
 
 [leiningen](http://leiningen.org/#install) must be installed and available on PATH to user running test suites:
@@ -44,14 +53,14 @@ from top directory:
 ### with lein run
 from top directory:
 
-    $ cd ./src; lein run [args]
+    $ cd ./src; lein run [options]
 
 ### with java -jar
 (example compiles to uberjar then runs)
 
 from top directory:
 
-    $ (cd ./src; lein uberjar) && java -jar ./src/target/uberjar/median-degree-0.1.0-standalone.jar [args]
+    $ (cd ./src; lein uberjar) && java -jar ./src/target/uberjar/median-degree-0.1.0-standalone.jar [options]
 
 ## Options
 
